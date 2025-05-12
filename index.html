@@ -14,34 +14,37 @@
     <!-- Intro -->
     <div id="intro">
       <h1>Personal Blog<br />Björn Rindlisbacher</h1>
-	  <span class="image fit" style="max-width: 200px; margin: 0 auto 1em;">
-		<img src="images/ProfilePicture.jpg" alt="Björn Rindlisbacher Profilbild" />
-	  </span>	  
+      <span class="image fit" style="max-width: 200px; margin: 0 auto 1em;">
+        <img src="images/ProfilePicture.jpg" alt="Björn Rindlisbacher Profilbild" />
+      </span>	  
       <p>Welcome to Power Platform News – Tipps, Tutorials und Trends zu Power Apps, Power Automate, Power BI und Copilot Studio. <br />
-        von <a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/">@Björn Rindlisbacher</a></p>
+        von <a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/" target="_blank" rel="noopener">@Björn Rindlisbacher</a></p>
       <ul class="actions">
-        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+        <li><a href="#scroll-anchor" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
       </ul>
     </div>
 
     <!-- Header -->
     <header id="header">
-      <a href="index.html" class="logo">Home</a>
+      <a href="index.html#main" class="logo">Home</a>
     </header>
 
     <!-- Nav -->
     <nav id="nav">
       <ul class="links">
         <li class="active"><a href="index.html">Blog</a></li>
-        <li><a href="about.html">About Me</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About Me</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="icons">
-        <li><a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+        <li><a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/" class="icon brands fa-linkedin" target="_blank" rel="noopener"><span class="label">Linkedin</span></a></li>
         <li><a href="https://github.com/Bjoern13-tech" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
       </ul>
     </nav>
+
+    <!-- Unsichtbarer Scroll-Anker -->
+    <div id="scroll-anchor" style="position: relative; top: -80px;"></div>
 
     <!-- Main -->
     <div id="main">
@@ -50,40 +53,72 @@
       <article class="post featured">
         <header class="major">
           <span class="date">13. Juli 2024</span>
-          <h2><a href="blog/drag-and-drop.html">Drag and Drop<br />in Power Apps</a></h2>
-          <p>Einführung in die Drag & Drop-Funktion in Power Apps: So verbesserst du die Nutzerinteraktion und gestaltest flexible App-Layouts.</p>
+          <h2 style="font-size: 2.2rem; margin-bottom: 1rem;">
+            <a href="blog/drag-and-drop.html">Drag & Drop<br>in Power Apps</a>
+          </h2>
+          <p style="font-size: 1.05rem;">Eine neue Funktion in Power Apps ermöglicht es, Drag-&-Drop-Erlebnisse in Canvas Apps und Custom Pages zu integrieren – einfach und intuitiv.</p>
         </header>
-        <a href="blog/drag-and-drop.html" class="image main"><img src="images/DragAndDrop_Thumbnail.jpg" alt="Drag and Drop Power Apps" /></a>
+
+        <!-- Bild nicht mehr full-width -->
+        <div style="max-width: 600px; margin: 2rem auto;">
+          <a href="blog/drag-and-drop.html">
+            <img src="images/DragAndDrop_Thumbnail.jpg" alt="Drag and Drop Power Apps" style="width: 100%; border-radius: 0.5em;" />
+          </a>
+        </div>
+
         <ul class="actions special">
-          <li><a href="blog/drag-and-drop.html" class="button large">Artikel lesen</a></li>
+          <li><a href="blog/drag-and-drop.html" class="button">Artikel lesen</a></li>
         </ul>
       </article>
 
-      <!-- Weitere Artikel -->
+
+      <!-- Blog Grid -->
       <section class="posts">
-        <!-- Beispielartikel -->
         <article>
           <header>
-            <span class="date">Demnächst</span>
-            <h2><a href="#">Power BI Tipps<br />für Einsteiger</a></h2>
+            <span class="date">10. Juni 2024</span>
+            <h2><a href="blog/power-bi-tipps.html">Power BI Tipps<br>für Einsteiger</a></h2>
           </header>
-          <a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-          <p>In Kürze folgt ein Artikel mit Best Practices zur Visualisierung in Power BI.</p>
+          <a href="blog/power-bi-tipps.html" class="image fit">
+            <img src="images/powerbi-tips.jpg" alt="Power BI Tipps" />
+          </a>
+          <p>Best Practices zur Visualisierung, Datenmodellierung und Filterlogik für verständliche Dashboards.</p>
           <ul class="actions special">
-            <li><a href="#" class="button disabled">Bald verfügbar</a></li>
+            <li><a href="blog/power-bi-tipps.html" class="button">Lesen</a></li>
+          </ul>
+        </article>
+
+        <article>
+          <header>
+            <span class="date">22. Mai 2024</span>
+            <h2><a href="blog/copilot-studio.html">Copilot Studio<br>und Automatisierung</a></h2>
+          </header>
+          <a href="blog/copilot-studio.html" class="image fit">
+            <img src="images/copilot.jpg" alt="Copilot Studio" />
+          </a>
+          <p>Wie Microsofts Copilot Studio Arbeitsprozesse mit generativer KI beschleunigen kann – mit praktischen Beispielen.</p>
+          <ul class="actions special">
+            <li><a href="blog/copilot-studio.html" class="button">Lesen</a></li>
           </ul>
         </article>
       </section>
+
+      <!-- Pagination -->
+      <footer>
+        <div class="pagination">
+          <span class="page active">1</span>
+          <a href="blog-page-2.html" class="page">2</a>
+          <a href="blog-page-3.html" class="page">3</a>
+          <span class="extra">&hellip;</span>
+          <a href="blog-page-2.html" class="page">Nächste</a>
+        </div>
+      </footer>
 
     </div>
 
     <!-- Footer -->
     <footer id="footer">
       <section class="split contact">
-        <!-- <section class="alt">
-          <h3>Adresse</h3>
-          <p>Interlakenstrasse 47<br />3705 Faulensee</p>
-        </section> -->
         <section>
           <h3>Phone</h3>
           <p><a href="#">+41 00 000 00 00</a></p>
@@ -95,7 +130,7 @@
         <section>
           <h3>Social</h3>
           <ul class="icons alt">
-            <li><a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+            <li><a href="https://www.linkedin.com/in/bj%C3%B6rn-rindlisbacher-860454233/" class="icon brands fa-linkedin" target="_blank" rel="noopener"><span class="label">Linkedin</span></a></li>
             <li><a href="https://github.com/Bjoern13-tech" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
           </ul>
         </section>
