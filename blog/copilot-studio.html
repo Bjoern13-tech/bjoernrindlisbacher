@@ -1,10 +1,29 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>{TITLE} - Blog</title>
+  <title>Copilot Studio in der Praxis – Blog</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    /* Nur für diesen Blogpost: Bilder und Figuren responsive einpassen */
+    .post img {
+      max-width: 70%;
+      height: auto;
+      display: block;
+      margin: 1em auto;
+    }
+    .post figure {
+      max-width: 100%;
+      margin: 1.5em auto;
+    }
+    .post figcaption {
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+      margin-top: 0.5em;
+    }
+  </style>
 </head>
 <body class="is-preload">
 
@@ -25,11 +44,216 @@
     <div id="main">
       <section class="post">
         <header class="major">
-          <h1>{TITLE}</h1>
-          <span class="date">{DATE}</span>
+          <h1>Copilot Studio in der Praxis: In nur einer Stunde zum eigenen Agenten mit SharePoint-Anbindung</h1>
+          <span class="date">08. August 2025</span>
         </header>
-        <p>{INTRO1}</p>
-        <p>{INTRO2}</p>
+
+        <p>Copilot Studio ist aktuell in aller Munde und eines der spannendsten Themen im Microsoft-Ökosystem. Früher war es vor allem der Copilot, heute sind es Agenten. Aber was genau steckt dahinter – und wie baut man schnell einen eigenen Agenten, der echten Mehrwert liefert?</p>
+        <p>In diesem Beitrag zeige ich Schritt für Schritt, wie ich einen SharePoint-Agenten mit Copilot Studio erstellt habe – inklusive Stolperfallen (DLP), allen Einstellungen, Tests und Learnings. Der gesamte Ablauf hat bei mir etwa eine Stunde gedauert.</p>
+
+        <h2>Was sind Agenten – und warum jetzt?</h2>
+        <p>Agenten sind digitale Helfer, die Aufgaben proaktiv oder auf Anfrage übernehmen. Möglich wird das durch Large Language Models (LLMs): große Sprachmodelle, die natürliche Sprache sehr gut verstehen und erzeugen können. Copilot Studio (früher Power Virtual Agents) ist die Plattform von Microsoft, um diese Agenten zu bauen – von simplen FAQ-Bots bis zu prozessgesteuerten, autonomen Lösungen.</p>
+
+        <h2>Mein Szenario</h2>
+        <p>Ich erstelle einen Agenten, der Fragen auf Basis meiner SharePoint-Dokumente und -Sites beantwortet und dazu immer die Quelle mitliefert. Dieses Setup eignet sich als Grundlage für HR-, Support- oder Wissens-Agenten, die Unternehmenswissen zugänglich machen.</p>
+
+        <hr />
+
+        <h2>Schritt 1: Neuen Agenten anlegen (Konversation mit dem eingebauten Copilot)</h2>
+        <p>Ich öffne Copilot Studio, gehe zu Agents und klicke auf New agent. Die Sprache setze ich auf Englisch (en-US), weil meine Umgebung so konfiguriert ist. Deutsch funktioniert ebenso – wichtig ist, es konsistent zu halten.</p>
+
+        <figure>
+          <img src="../images/copilot-new-agent-chat.png" alt="Start: Copilot begrüßt zur Agent-Erstellung">
+          <figcaption>Start der Erstellung.</figcaption>
+        </figure>
+
+        <p>Als Nächstes beschreibe ich meinen Anwendungsfall in natürlicher Sprache. Der Vorteil: Ich muss keine technische Vorlage kennen, sondern kann mein Ziel in eigenen Worten formulieren. So entsteht von Beginn an ein Agent, der auf mein Szenario zugeschnitten ist.</p>
+
+        <figure>
+          <img src="../images/copilot-new-agent-prompt.png" alt="Prompt: SharePoint Agent Wunsch">
+          <figcaption>Erster Prompt.</figcaption>
+        </figure>
+
+        <p>Der Assistent übernimmt die Grundidee und fragt nach Details. Ich vergebe den Namen SharePoint Agent und konkretisiere die Aufgaben. Wichtig ist, die Erwartung an die Quellenlage klar zu formulieren – also: Antworten ausschließlich auf Basis der SharePoint-Dokumente und immer mit Quellenangabe.</p>
+
+        <blockquote>
+          I want my Agent to answer my questions based on all the SharePoint Documents and Sites.  
+          It should then always give me the source to the document or site.
+        </blockquote>
+
+        <figure>
+          <img src="../images/copilot-agent-setup-complete.png" alt="Setup-Abschluss durch den Copilot">
+          <figcaption>Setup bestätigt.</figcaption>
+        </figure>
+
+        <p>Ich verzichte bewusst auf zusätzliche Quellen, um die Qualität der Antworten hochzuhalten. Besser mehrere spezialisierte Agenten als ein „Alles-Agent“, der unklar priorisiert. Danach erstelle ich den Agenten endgültig.</p>
+
+        <figure>
+          <img src="../images/copilot-agent-create-button.png" alt="Create Button zum finalen Anlegen">
+          <figcaption>Agent anlegen.</figcaption>
+        </figure>
+
+        <hr />
+
+        <h2>Schritt 2: Überblick und Kern-Einstellungen</h2>
+        <p>Im Overview sehe ich, was Copilot Studio bereits angelegt hat: Name, Beschreibung und erste Anweisungen. Hier stelle ich die Orchestration ein. Für flexible Antworten wähle ich Generative Orchestration; feste Dialogpfade wären Classical Orchestration.</p>
+        <p>Beim Modell belasse ich es auf GPT-4o (Default); GPT-4.1 ist ebenfalls möglich. Wichtiger als das Modell ist hier die klare Aufgabenbeschreibung: Je fokussierter, desto besser.</p>
+
+        <figure>
+          <img src="../images/copilot-overview-initial.png" alt="Overview der Agent-Konfiguration">
+          <figcaption>Überblick.</figcaption>
+        </figure>
+
+        <h3>Instructions</h3>
+        <p>Die Instructions sind der „dauerhafte Prompt“ des Agenten. Hier definiere ich Rolle, Datenquellen, Tonalität und Grenzen. Zu allgemeine Vorgaben führen oft zu vagen Antworten; präzise, kurze Regeln helfen der KI, sicher zu agieren.</p>
+
+        <figure>
+          <img src="../images/copilot-instructions.png" alt="Instructions-Block mit Default-Regeln">
+          <figcaption>Regeln des Agenten.</figcaption>
+        </figure>
+
+        <hr />
+
+        <h2>Schritt 3: Knowledge (Wissensquellen) hinzufügen</h2>
+        <p>Jetzt binde ich meine SharePoint-Site an. Alternativ lassen sich Dateien hochladen oder Dienste wie Dataverse, Azure SQL oder öffentliche Websites anbinden. Für klare Ergebnisse starte ich mit einer Quelle und ergänze später, wenn nötig.</p>
+
+        <figure>
+          <img src="../images/copilot-add-knowledge-button.png" alt="Bereich Knowledge mit Add knowledge Button">
+          <figcaption>Quelle hinzufügen.</figcaption>
+        </figure>
+
+        <p>Im Dialog wähle ich SharePoint als Quelle. Je sauberer der Inhalt in SharePoint strukturiert ist (Dateinamen, Metadaten, Seitenaufbau), desto leichter findet der Agent die relevanten Stellen.</p>
+
+        <figure>
+          <img src="../images/copilot-add-knowledge-dialog.png" alt="Dialog: Knowledge Source auswählen">
+          <figcaption>Auswahl der Quelle.</figcaption>
+        </figure>
+
+        <figure>
+          <img src="../images/copilot-sharepoint-source.png" alt="SharePoint als Quelle – Site auswählen und benennen">
+          <figcaption>Site verbinden.</figcaption>
+        </figure>
+
+        <p>Tipp aus der Praxis: Jede Quelle klar benennen und beschreiben. Das zahlt sich später aus, wenn mehrere Sites oder Dateien eingebunden werden.</p>
+
+        <hr />
+
+        <h2>Schritt 4: Tools, Flows und Trigger</h2>
+        <p>Unter Tools kann ich den Agenten handlungsfähig machen: Agent flows (Power Automate), Custom Connector, REST API oder Model Context Protocol. Für den ersten Wurf lasse ich das weg und konzentriere mich auf die Qualität der Antworten.</p>
+
+        <figure>
+          <img src="../images/copilot-add-tool.png" alt="Add tool: Prompt, Agent flow, Custom connector, REST API, MCP">
+          <figcaption>Optionale Erweiterungen.</figcaption>
+        </figure>
+
+        <p>Mit Triggers kann der Agent auf Ereignisse reagieren, z. B. neue Dokumente in SharePoint. Das ist interessant, wenn Prozesse automatisiert angestoßen werden sollen – etwa Benachrichtigungen oder Zusammenfassungen.</p>
+
+        <figure>
+          <img src="../images/copilot-triggers.png" alt="Triggers-Bereich mit Add trigger">
+          <figcaption>Ereignisse verarbeiten.</figcaption>
+        </figure>
+
+        <p>Copilot Studio unterstützt außerdem Multi-Agent Orchestration. Sinnvoll, wenn getrennte Rollen kooperieren sollen (z. B. Projektmanager-Agent plus Sachbearbeiter-Agent).</p>
+
+        <h3>Topics</h3>
+        <p>Topics sind vordefinierte Themen und Prompts, mit denen ich Standardfälle steuere. Für diesen Test lasse ich sie bewusst weg, damit ich das generative Verhalten gut beobachten kann.</p>
+
+        <hr />
+
+        <h2>Schritt 5: Publish – DLP-Blockade lösen</h2>
+        <p>Beim ersten Publish stoße ich auf eine DLP-Blockade. Zunächst dachte ich an SharePoint, tatsächlich blockierte die Richtlinie den Direct Line Connector. Ohne dessen Freigabe sind bestimmte Kanäle nicht verfügbar.</p>
+
+        <figure>
+          <img src="../images/copilot-channels-details.png" alt="Channels: Warnungen/Fehler verhindern Publish">
+          <figcaption>Hinweis auf Richtlinien.</figcaption>
+        </figure>
+
+        <h3>So passt man die DLP-Policy an (Admin)</h3>
+        <p>Mit Adminrechten öffne ich das <a href="https://admin.powerplatform.microsoft.com" target="_blank" rel="noopener">Power Platform Admin Center</a>, gehe zu Security → Data and privacy → Data policy, öffne die betroffene Policy und verschiebe Direct Line channels in Copilot Studio aus Blocked nach Business oder Non-business.</p>
+
+        <figure>
+          <img src="../images/power-platform-admin-datapolicy.png" alt="Admin Center: Data and privacy, Data policy">
+          <figcaption>Pfad zur Policy.</figcaption>
+        </figure>
+
+        <figure>
+          <img src="../images/power-platform-dlp-direct-line-connector.png" alt="DLP: Direct Line channels in Copilot Studio ist blockiert">
+          <figcaption>Connector freigeben.</figcaption>
+        </figure>
+
+        <p>Nach der Anpassung lässt sich der Agent ohne Fehler veröffentlichen. Erst danach lohnt es sich, Zeit in Feinschliff zu investieren.</p>
+
+        <figure>
+          <img src="../images/copilot-publish-button.png" alt="Publish Button ohne Fehler">
+          <figcaption>Erfolgreich veröffentlichen.</figcaption>
+        </figure>
+
+        <hr />
+
+        <h2>Schritt 6: SharePoint-Inhalte vorbereiten</h2>
+        <p>Damit der Agent belastbar antwortet, brauche ich eine solide Wissensbasis. Ich arbeite mit einer Test-Site, die Seiten und verschiedene Dokumente enthält (z. B. Power Platform Licensing Guide, PDFs, Excel). Klare Dateinamen und nachvollziehbare Struktur zahlen sich direkt aus.</p>
+
+        <figure>
+          <img src="../images/sharepoint-page-sample.png" alt="SharePoint Seite: Test SharePoint Site">
+          <figcaption>Beispielseite.</figcaption>
+        </figure>
+
+        <figure>
+          <img src="../images/sharepoint-document-library.png" alt="SharePoint Dokumentenbibliothek mit Dateien">
+          <figcaption>Dokumentenbibliothek.</figcaption>
+        </figure>
+
+        <p>Für spätere Iterationen kann ich Metadaten ergänzen oder Inhalte zusammenfassen. Beides hilft dem Agenten, schneller die passenden Passagen zu finden.</p>
+
+        <hr />
+
+        <h2>Schritt 7: Testen – von einfach bis knifflig</h2>
+
+        <h3>Einfach: Datum eines Dokuments</h3>
+        <p>Ich starte mit einer trivialen Frage: „From when is the license guide document?“ Während der Anfrage zeigt mir die Activity map, welche Quelle gerade durchsucht wird. Das macht das Verhalten transparent und hilft beim Debugging.</p>
+
+        <figure>
+          <img src="../images/copilot-test-searching.png" alt="Suche läuft: Reviewing sources">
+          <figcaption>Suche sichtbar.</figcaption>
+        </figure>
+
+        <p>Die Antwort „The Power Platform Licensing Guide is from May 2023.“ ist korrekt und verweist auf die passende Stelle. So soll es sein.</p>
+
+        <figure>
+          <img src="../images/copilot-answer-license-date.png" alt="Antwort mit Referenz: May 2023, inkl. Quelle">
+          <figcaption>Antwort mit Quelle.</figcaption>
+        </figure>
+
+        <h3>Mittlerer Schwierigkeitsgrad: Lizenzplan</h3>
+        <p>Als nächstes frage ich: „Is there a Power Automate per Flow License?“ Der Agent erkennt den Plan und liefert die Bestätigung inklusive Quelle. Für häufige Fragen ist das bereits produktiv nutzbar.</p>
+
+        <figure>
+          <img src="../images/copilot-answer-per-flow.png" alt="Antwort: Power Automate per flow plan vorhanden">
+          <figcaption>Plan erkannt.</figcaption>
+        </figure>
+
+        <h3>Sehr spezifisch: Managed Environments</h3>
+        <p>Bei der Spezialfrage zu Managed Environments zeigt sich eine Grenze: Der Agent listet allgemeine Lizenzinformationen, beantwortet die exakte Detailfrage aber nicht eindeutig. Das ist normal – je spezieller die Anforderung, desto wichtiger sind präzise Quellen oder ergänzende Regeln/Topics.</p>
+
+        <hr />
+
+        <h2>Best Practices und Learnings</h2>
+        <p>Aus dem ersten Durchlauf nehme ich Folgendes mit:</p>
+        <ul>
+          <li><strong>Fokus pro Agent:</strong> Lieber mehrere spezialisierte Agenten als ein Gemischtwarenladen.</li>
+          <li><strong>Instructions präzise:</strong> Rolle, Quellen, Grenzen klar definieren – weniger, aber klarer.</li>
+          <li><strong>Saubere Inhalte:</strong> Struktur, Dateinamen und Metadaten helfen der KI enorm.</li>
+          <li><strong>Transparenz nutzen:</strong> Activity-Ansicht zeigt, was der Agent tut – ideal zum Troubleshooting.</li>
+          <li><strong>DLP früh klären:</strong> Connectoren wie Direct Line rechtzeitig freigeben lassen.</li>
+        </ul>
+
+        <h2>Fazit</h2>
+        <p>Mit Copilot Studio habe ich in kurzer Zeit einen funktionierenden SharePoint-Agenten gebaut. Einfache bis mittlere Fragen beantwortet er zuverlässig und mit Quellenangabe. Für sehr spezifische Detailfragen lohnt sich der Ausbau der Wissensbasis und – wo sinnvoll – die Ergänzung von Flows, Topics oder weiteren Tools. Auf dieser Basis lassen sich viele Szenarien umsetzen, vom internen HR-Agenten bis zum Wissensbot für ganze Teams.</p>
+
+        <h2>Deine Erfahrungen?</h2>
+        <p>Hast du Fragen oder allenfalls auch schon mit Copilot Studio gearbeitet? Was waren deine Learnings, Stolpersteine oder Aha-Momente? 
+        Ich freue mich auf den Austausch – gerne über das <a href="../contact.html">Kontaktformular</a> oder auf <a href="https://www.linkedin.com/in/bjoernrindlisbacher/" target="_blank">LinkedIn</a>.</p>
+
         <ul class="actions">
           <li><a href="../index.html#main" class="button">&larr; Zurück zur Übersicht</a></li>
         </ul>

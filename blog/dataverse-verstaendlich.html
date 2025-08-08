@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Dataverse verständlich erklärt – Power Platform Blog</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+  <div id="wrapper">
+    <header id="header">
+      <a href="../index.html" class="logo">Blog</a>
+    </header>
+
+    <nav id="nav">
+      <ul class="links">
+        <li class="active"><a href="../index.html">Blog</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../about.html">About Me</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div id="main">
+      <section class="post">
+        <header class="major">
+          <h1>Dataverse verständlich erklärt – das Rückgrat deiner Power Platform Lösung</h1>
+          <span class="date">7. August 2025</span>
+        </header>
+
+        <p>Meine ersten Berührungspunkte mit Dataverse hatte ich 2021, als ich in die Power Platform und Dynamics 365 eingestiegen bin. Damals war mir nicht wirklich klar, womit ich es da zu tun habe. Als Benutzer arbeitet man einfach mit einer Maske, gibt Daten ein, speichert sie, ändert vielleicht später etwas oder löscht Einträge. Man denkt dabei selten darüber nach, was im Hintergrund eigentlich passiert.</p>
+
+        <p>Auch als Customizer – also jemand, der Lösungen konfiguriert, ohne klassisch zu programmieren – war es am Anfang nicht leicht, ein tieferes Verständnis für Dataverse zu entwickeln. Man klickt Felder und Tabellen zusammen, sieht die Benutzeroberfläche, aber die dahinterliegende Logik bleibt erstmal abstrakt.</p>
+
+        <p>Ich hatte damals zwar schon etwas Erfahrung mit SQL und klassischen relationalen Datenbanken. Dort arbeitet man mit Tabellen, die Felder enthalten, und füllt diese mit Datensätzen. Im Grunde funktioniert Dataverse sehr ähnlich: Auch hier gibt es Tabellen, Felder wie Name, Strasse oder Land und natürlich die eigentlichen Daten, die gespeichert werden. Der Unterschied liegt aber im Detail – und genau das habe ich erst mit der Zeit verstanden.</p>
+
+        <h2>Was macht Dataverse besonders?</h2>
+        <p>Dataverse ist die zentrale Datenplattform der Power Platform und eng mit Power Apps, Power Automate und Power BI verknüpft. Anders als bei einer klassischen SQL-Datenbank ist hier vieles bereits integriert, was man sonst manuell aubauen müsste: Sicherheitskonzepte, Geschäftslogik, Formellogik, API-Zugriffe – alles steht direkt zur Verfügung. Und vor allem: Es ist über eine benutzerfreundliche Oberfläche zugänglich, ohne dass man gleich in SQL oder komplexen Code einsteigen muss.</p>
+
+        <span class="image fit"><img src="../images/powerplatform_overview.png" alt="Power Platform Overview" /></span>
+
+        <p>Das ist Fluch und Segen zugleich. Einerseits erleichtert es den Einstieg enorm. Man kann sich schnell eigene Lösungen zusammenbauen, ohne viel technische Vorkenntnisse. Andererseits verliert man dadurch auch schnell das Verständnis für wichtige Grundlagen – etwa, wie die Datenstruktur langfristig gepflegt wird oder welche Auswirkungen scheinbar einfache änderungen haben.</p>
+
+        <h2>Was ich im Umgang mit Dataverse gelernt habe</h2>
+
+        <h3>Namenskonventionen sind wichtig</h3>
+        <p>Wenn du Tabellen, Felder oder Lösungen anlegst, solltest du dir vorher Gedanken machen, wie du sie benennst. Einheitliche Namenskonventionen helfen nicht nur dir, sondern auch allen, die später mit deiner Lösung arbeiten. Besonders bei grösseren Projekten oder mehreren Umgebungen kann das viel Verwirrung vermeiden.</p>
+
+        <h3>Logischer Name und Anzeigename</h3>
+        <p>Der logische Name ist der technische Bezeichner, den du zum Beispiel in Power Automate oder bei API-Zugriffen brauchst. Er ist eindeutig und kann später nicht mehr geändert werden. Der Anzeigename ist das, was Benutzer in der Oberfläche sehen. Es ist wichtig, sich bewusst zu machen, dass diese zwei Namen unterschiedlich sind – und dass der logische Name mit Bedacht gewählt werden sollte.</p>
+
+        <h3>Eigene Publisher verwenden</h3>
+        <p>Wenn du eine Solution erstellst, solltest du nicht den Standard-Publisher von Microsoft verwenden (dieser erzeugt Präfixe wie <code>new_</code> oder <code>cr8a3_</code>). Besser ist es, einen eigenen Publisher anzulegen, zum Beispiel mit einem Firmenkürzel wie <code>sw_</code> für Swisscom. Das sorgt für klare technische Namen und hilft beim Strukturieren grösserer Lösungen.</p>
+
+        <h3>Felder und Tabellen nicht unbedacht löschen</h3>
+        <p>In echten Projekten arbeitet man oft mit mehreren Umgebungen wie Entwicklung, Test und Produktion. Das ist wichtig, um neue Funktionen sauber zu prüfen. Wenn man ein Feld oder eine Tabelle löscht, die irgendwo noch verwendet wird, kann das beim Deployment zu Fehlern führen. Deshalb ist es wichtig, Abhängigkeiten zu prüfen, bevor man etwas entfernt.</p>
+
+        <h3>Abhängigkeiten verstehen</h3>
+        <p>In Dataverse hängen viele Dinge zusammen: Felder, Formulare, Ansichten, Regeln, Flows und mehr. Wenn du ein Feld löscht, das in einer Ansicht verwendet wird, kommt es zu Fehlern – nicht nur beim Deployment, sondern auch im laufenden Betrieb. Der Solution Explorer hilft dabei, diese Abhängigkeiten sichtbar zu machen. Ich nutze das regelmässig.</p>
+
+        <h2>Fazit</h2>
+        <p>Dataverse ist nicht einfach nur ein Datenspeicher. Es ist eine Plattform, die viele wichtige Funktionen für die Power Platform kombiniert und dabei trotzdem benutzerfreundlich bleibt. Aber man versteht das alles erst wirklich, wenn man es selbst ausprobiert.</p>
+
+        <p>Wenn du einsteigen willst, empfehle ich dir, mit einer kostenlosen Entwicklerumgebung zu starten. Damit kannst du ohne Risiko eigene Szenarien durchspielen.</p>
+
+        <p><a href="https://developer.microsoft.com/en-us/powerplatform" target="_blank">Zur Power Platform Developer Umgebung</a></p>
+
+        <h2>Deine Erfahrungen?</h2>
+        <p>Hast du Fragen oder allenfalls auch schon mit Dataverse gearbeitet? Was waren deine Learnings, Stolpersteine oder Aha-Momente? 
+        Ich freue mich auf den Austausch – gerne über das <a href="../contact.html">Kontaktformular</a> oder auf <a href="https://www.linkedin.com/in/bjoernrindlisbacher/" target="_blank">LinkedIn</a>.</p>
+
+        <ul class="actions">
+          <li><a href="../index.html#main" class="button">&larr; Zurück zur Übersicht</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer id="footer">
+      <section class="split contact">
+        <section>
+          <h3>Email</h3>
+          <p><a href="mailto:björn.rindlisbacher123@gmail.com">björn.rindlisbacher123@gmail.com</a></p>
+        </section>
+      </section>
+    </footer>
+  </div>
+
+</body>
+</html>
